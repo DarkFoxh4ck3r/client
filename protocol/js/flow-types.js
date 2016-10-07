@@ -1185,6 +1185,14 @@ export function metadataPutKeysRpcPromise (request: $Exact<requestCommon & reque
   return new Promise((resolve, reject) => { metadataPutKeysRpc({...request, param: request.param, callback: (error, result) => { if (error) { reject(error) } else { resolve(result) } }}) })
 }
 
+export function metadataPutMetadata2Rpc (request: Exact<requestCommon & requestErrorCallback & {param: metadataPutMetadata2RpcParam}>) {
+  engineRpcOutgoing({...request, method: 'metadata.putMetadata2'})
+}
+
+export function metadataPutMetadata2RpcPromise (request: $Exact<requestCommon & requestErrorCallback & {param: metadataPutMetadata2RpcParam}>): Promise<any> {
+  return new Promise((resolve, reject) => { metadataPutMetadata2Rpc({...request, param: request.param, callback: (error, result) => { if (error) { reject(error) } else { resolve(result) } }}) })
+}
+
 export function metadataPutMetadataRpc (request: Exact<requestCommon & requestErrorCallback & {param: metadataPutMetadataRpcParam}>) {
   engineRpcOutgoing({...request, method: 'metadata.putMetadata'})
 }
@@ -2312,6 +2320,11 @@ export type Kex2ProvisioneeHelloRpcParam = Exact<{
   pps: PassphraseStream,
   sigBody: string
 }>
+
+export type KeyBundle = {
+  version: int,
+  bundle: bytes,
+}
 
 export type KeyHalf = {
   user: UID,
@@ -3608,6 +3621,13 @@ export type metadataPutKeysRpcParam = Exact<{
   logTags: {[key: string]: string}
 }>
 
+export type metadataPutMetadata2RpcParam = Exact<{
+  mdBlock: MDBlock,
+  readerKeyBundle: KeyBundle,
+  writerKeyBundle: KeyBundle,
+  logTags: {[key: string]: string}
+}>
+
 export type metadataPutMetadataRpcParam = Exact<{
   mdBlock: MDBlock,
   logTags: {[key: string]: string}
@@ -4368,6 +4388,7 @@ export type rpc =
   | metadataPingRpc
   | metadataPruneBranchRpc
   | metadataPutKeysRpc
+  | metadataPutMetadata2Rpc
   | metadataPutMetadataRpc
   | metadataRegisterForUpdatesRpc
   | metadataTruncateLockRpc

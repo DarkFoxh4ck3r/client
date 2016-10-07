@@ -45,6 +45,20 @@
     },
     {
       "type": "record",
+      "name": "KeyBundle",
+      "fields": [
+        {
+          "type": "int",
+          "name": "version"
+        },
+        {
+          "type": "bytes",
+          "name": "bundle"
+        }
+      ]
+    },
+    {
+      "type": "record",
       "name": "MetadataResponse",
       "fields": [
         {
@@ -104,6 +118,30 @@
         {
           "name": "mdBlock",
           "type": "MDBlock"
+        },
+        {
+          "name": "logTags",
+          "type": {
+            "type": "map",
+            "values": "string"
+          }
+        }
+      ],
+      "response": null
+    },
+    "putMetadata2": {
+      "request": [
+        {
+          "name": "mdBlock",
+          "type": "MDBlock"
+        },
+        {
+          "name": "readerKeyBundle",
+          "type": "KeyBundle"
+        },
+        {
+          "name": "writerKeyBundle",
+          "type": "KeyBundle"
         },
         {
           "name": "logTags",
