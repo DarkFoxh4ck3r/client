@@ -452,10 +452,3 @@ func (s *Storage) Fetch(ctx context.Context, ri chat1.RemoteInterface, convID ch
 	s.debug("Fetch: cache hit: num: %d", len(res))
 	return res, nil
 }
-
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
