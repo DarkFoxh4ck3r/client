@@ -194,7 +194,8 @@ func (h *chatLocalHandler) GetInboxLocal(ctx context.Context, arg chat1.GetInbox
 
 // GetThreadLocal implements keybase.chatLocal.getThreadLocal protocol.
 func (h *chatLocalHandler) GetThreadLocal(ctx context.Context, arg chat1.GetThreadLocalArg) (chat1.GetThreadLocalRes, error) {
-	if err := h.assertLoggedIn(ctx); err != nil {
+	var err error
+	if err = h.assertLoggedIn(ctx); err != nil {
 		return chat1.GetThreadLocalRes{}, err
 	}
 
@@ -208,7 +209,7 @@ func (h *chatLocalHandler) GetThreadLocal(ctx context.Context, arg chat1.GetThre
 		h.G().Log.Debug("GetThreadLocal cache hit: convID: %d uid: %s", arg.ConversationID, uid)
 		return chat1.GetThreadLocalRes{
 			Thread: chat1.ThreadView{
-				Messages: localData,
+				Messages: chat.FilterByType(localData, arg.Query),
 			},
 		}, nil
 	}
